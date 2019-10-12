@@ -24,8 +24,6 @@ class TestAuto: AutoRoutine() {
 
             +org.ghrobotics.lib.commands.parallel {
                 +DriveSubsystem.followTrajectory(
-//                        path1,
-//                        Autonomous.isStartingOnLeft
                     5.second
                 )
                 +(sequential {
@@ -36,45 +34,21 @@ class TestAuto: AutoRoutine() {
             }
 
             +TurnInPlaceCommand {
-//                Pose2d().mirror
-////                val goal = TrajectoryWaypoints.kRocketF.translation.let { if(Autonomous.isStartingOnLeft()) it.mirror else it }
-//                val goalTarget = TargetTracker.getBestTarget(true)
-//                if(goalTarget != null) {
-//                    val goal = goalTarget.averagedPose2d.translation
-//                    val error = (goal - DriveSubsystem.robotPosition.translation)
-//                    Rotation2d(error.x.meter, error.y.meter, true)
-//                } else {
-//                    -151.degree.toRotation2d()
-//                }
-////                -151.degree.toRotation2d()
                 1.second
             }
 
             +super.followVisionAssistedTrajectory(
-//                    path2,
-//                    Autonomous.isStartingOnLeft,
-//                    10.feet,
-//                    true
                     2.second
             )
 
             // Reorient position on field based on Vision alignment.
             +relocalize(
-//                    TrajectoryWaypoints.kRocketF,
-//                    true,
-//                    Autonomous.isStartingOnLeft,
-//                    isStowed = true
             )
 
             val spline3 = DriveSubsystem.followTrajectory(
-//                    path3,
-//                    Autonomous.isStartingOnLeft
                     2.second
             )
             val spline4 = super.followVisionAssistedTrajectory(
-//                    path4,
-//                    Autonomous.isStartingOnLeft,
-//                    7.feet, false
                 6.second
             )
 
@@ -99,37 +73,22 @@ class TestAuto: AutoRoutine() {
 
             // Reorient position on field based on Vision alignment.
             +relocalize(
-//                    TrajectoryWaypoints.kLoadingStationReversed,
-//                    true,
-//                    Autonomous.isStartingOnLeft,
-//                    isStowed = true
             )
 
             // Part 3: Pickup hatch and go to the near side of the rocket.
             +org.ghrobotics.lib.commands.parallel {
                 val path = DriveSubsystem.followTrajectory(
-//                        path5, Autonomous.isStartingOnLeft
                     4.second
                 )
                 +path
                 // Make sure the intake is holding the hatch panel.
                 +IntakeHatchCommand(false).withTimeout(4.0.second).withExit { path.isFinished }
-                // Follow the trajectory with vision correction to the near side of the rocket.
-//                +WaitCommand(0.5)
-//                +Superstructure.kStowed
             }
             // turn to face the goal
             +TurnInPlaceCommand {
-                //                val goal = TrajectoryWaypoints.kRocketN.translation.let { if(Autonomous.isStartingOnLeft()) it.mirror else it }
-//                val error = (goal - DriveSubsystem.robotPosition.translation)
-//                Rotation2d(error.x.meter, error.y.meter, true)
-//                (-28.75).degree.toRotation2d()
                 1.second
             }
             +followVisionAssistedTrajectory(
-//                    path6,
-//                    Autonomous.isStartingOnLeft,
-//                    4.feet
                 3.second
             )
 
