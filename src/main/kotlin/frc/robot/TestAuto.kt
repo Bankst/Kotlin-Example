@@ -137,6 +137,7 @@ class TestAuto: AutoRoutine() {
                 +IntakeHatchCommand(true).withTimeout(1.0)
                 +RunCommand(Runnable { DriveSubsystem.tankDrive(-0.3, -0.3) }).withTimeout(1.0)
             }
+            +PrintCommand("Ending auto.....")
         }
 
 }
