@@ -2,7 +2,6 @@ package frc.robot
 
 import edu.wpi.first.wpilibj.experimental.command.*
 import frc.robot.subsystems.drive.DriveSubsystem
-
 import org.ghrobotics.lib.commands.FalconCommand
 import org.ghrobotics.lib.commands.sequential
 import org.ghrobotics.lib.mathematics.twodim.geometry.Pose2d
@@ -11,12 +10,10 @@ import org.ghrobotics.lib.mathematics.twodim.geometry.Rectangle2d
 import org.ghrobotics.lib.mathematics.twodim.geometry.Translation2d
 import org.ghrobotics.lib.mathematics.twodim.trajectory.types.TimedTrajectory
 import org.ghrobotics.lib.mathematics.twodim.trajectory.types.duration
-import org.ghrobotics.lib.mathematics.twodim.trajectory.types.mirror
 import org.ghrobotics.lib.mathematics.units.*
 import org.ghrobotics.lib.utils.BooleanSource
 import org.ghrobotics.lib.utils.Source
 import org.ghrobotics.lib.utils.map
-import sun.security.util.Length
 
 abstract class AutoRoutine : SequentialCommandGroup(), Source<Command> {
 
@@ -34,7 +31,7 @@ abstract class AutoRoutine : SequentialCommandGroup(), Source<Command> {
     fun followVisionAssistedTrajectory(
             originalTrajectory: TimedTrajectory<Pose2dWithCurvature>,
             pathMirrored: BooleanSource,
-            radiusFromEnd: Length,
+            radiusFromEnd: SIUnit<Meter>,
             useAbsoluteVision: Boolean = false
     ) = DriveSubsystem.followTrajectory(
 //            pathMirrored.map(originalTrajectory.mirror(), originalTrajectory),
@@ -52,7 +49,7 @@ abstract class AutoRoutine : SequentialCommandGroup(), Source<Command> {
 
     protected fun relocalize(position: Pose2d, forward: Boolean, pathMirrored: BooleanSource, isStowed: Boolean = false) = InstantCommand(Runnable {
         val newPosition = Pose2d(
-                pathMirrored.map(position.mirror, position)().translation, // if pathMirrored is true, mirror the pose
+                pathMirrored.map(position.mirror, position)().translation // if pathMirrored is true, mirror the pose
                 // otherwise, don't. Use that translation2d for the new position
 //                DriveSubsystem.localization().rotation
         ) //+ if (forward) (if (isStowed) Constants.kForwardIntakeStowedToCenter else Constants.kForwardIntakeToCenter) else Constants.kBackwardIntakeToCenter
