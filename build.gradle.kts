@@ -27,7 +27,7 @@ deploy {
         // Send the JAR to the RoboRIO
         artifact("frcJava", FRCJavaArtifact::class.java, closureOf<FRCJavaArtifact> {
             targets.add(roborioTargetName)
-            debug = frc.getDebugOrDefault(false)
+            debug = frc.getDebugOrDefault(true)
             jvmArgs = listOf(
                     "-Xmx20M",
                     "-XX:+UseG1GC",
@@ -36,7 +36,7 @@ deploy {
                     "-Dcom.sun.management.jmxremote.local.only=false",
                     "-Dcom.sun.management.jmxremote.ssl=false",
                     "-Dcom.sun.management.jmxremote.authenticate=false",
-                    "-Djava.rmi.server.hostname=10.59.40.2"
+                    "-Djava.rmi.server.hostname=172.22.11.2"
             )
         })
     }
