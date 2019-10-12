@@ -23,6 +23,11 @@ object Robot : FalconTimedRobot() {
 
         super.robotPeriodic()
     }
+
+    override fun autonomousInit() {
+        TestAuto()().schedule()
+        super.autonomousInit()
+    }
 }
 
 fun main() {
