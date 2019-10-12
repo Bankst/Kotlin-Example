@@ -20,7 +20,7 @@ deploy {
     targets {
         // Add the RoboRIO as a target
         target(roborioTargetName, RoboRIO::class.java, closureOf<RoboRIO> {
-            team = 5940
+            team = 832
         })
     }
     artifacts {
