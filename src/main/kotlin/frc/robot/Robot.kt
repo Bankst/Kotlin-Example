@@ -35,7 +35,7 @@ object Robot : FalconTimedRobot() {
     }
 
     override fun autonomousInit() {
-        TestAuto()().schedule()
+        TestAuto2()().schedule()
         super.autonomousInit()
     }
 }
